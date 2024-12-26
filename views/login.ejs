@@ -1,0 +1,53 @@
+<%- include("./partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="/Styles/favicon.ico" sizes="32x32" type="image/x-icon">
+    <link rel="stylesheet" href="Styles/style.css">
+</head>
+<body>
+    <form id="loginForm" class="login-container">
+        <label for="email">Email:</label>
+        <input type="email" class="email" name="email" required>
+        <label for="password" class="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = '/welcome'; // Redirect to welcome page on success
+        } else {
+            alert(data.message || 'Invalid email or password.'); // Show error message
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+    </script>
+    
+</body>
+</html>
+<%- include("./partials/footer.ejs") %>

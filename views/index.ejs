@@ -1,0 +1,36 @@
+<%- include("./partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="/Styles/favicon.ico" sizes="32x32" type="image/x-icon">
+    <link rel="stylesheet" href="Styles/style.css"\>
+</head><div class="main">  
+        <h1 class="header">Are you ready to Test your Knowledge with the Quiz !!</h1>
+        </div>
+        <main>
+            <div class="login-container">
+                <h2>Register</h2>
+                <form action="/register" method="post">
+                    <label for="email">Email:</label>
+                    <input type="email" class="email" name="email" required>
+                    
+                    <label for="username">Username:</label>
+                    <input type="text" class="username" name="username" required>
+                    
+                    <label for="password">Password:</label>
+                    <input type="password" class="password" name="password" required>
+                    
+                    <button type="submit" class="btn">Register</button>
+                </form>
+                <p>Already Have an Account? <a href="./login">Login</a></p>
+            </div>
+            <button onclick="alert(Instructions.ejs)" ></button>
+            </main>
+</html> 
+<%- include("./partials/footer.ejs") %>

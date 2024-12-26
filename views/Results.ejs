@@ -1,0 +1,33 @@
+<%- include("./partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="/Styles/favicon.ico" sizes="32x32" type="image/x-icon">
+    <link rel="stylesheet" href="/Styles/style.css"> 
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Completed!</h1>
+        <p>Your Score: <span class="score"><%= score %></span> out of <span class="total"><%= totalQuestions %></span></p>
+        
+        <div class="button-container">
+            <form action="/play" method="get">
+                <button type="submit" class="play-again" aria-label="Play the quiz again">Play Again</button>
+            </form>
+            <form action="/contact" method="get">
+                <button type="submit" class="feedback" aria-label="Provide feedback">Give Feedback</button>
+            </form>
+            <form action="/" method="get">
+                <button type="submit" class="home" aria-label="Go back to home page">Back to Home</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+<%- include("./partials/footer.ejs") %>

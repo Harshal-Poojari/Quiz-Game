@@ -1,0 +1,75 @@
+<%- include("./partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="/Styles/favicon.ico" sizes="32x32" type="image/x-icon">
+    <link rel="stylesheet" href="/Styles/style.css">
+</head>
+<body>
+    <div class="registration-container">
+        <h1>Register</h1>
+
+        <!-- Error message display box (hidden by default) -->
+        <div id="error-message" class="error-message" style="display: none;">
+            <p id="error-text"></p>
+        </div>
+    
+        <form id="registerForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    fetch('http://localhost:3000/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, username, password })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Registration successful!');
+            window.location.href = `/welcome?username=${encodeURIComponent(username)}`;
+        } else {
+            // Display the error message dynamically
+            const errorMessageBox = document.getElementById('error-message');
+            const errorText = document.getElementById('error-text');
+            errorText.textContent = data.message || 'Registration failed.';
+            errorMessageBox.style.display = 'block'; // Show the error message
+        }
+    })
+    .catch(error => {
+        alert('An error occurred during registration. Please try again.');
+        console.error('Error:', error);
+    });
+});
+
+    </script>
+    
+</body>
+</html>
+<%- include("./partials/footer.ejs") %>

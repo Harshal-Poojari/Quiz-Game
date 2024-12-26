@@ -1,0 +1,26 @@
+<%- include("./partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="/Styles/favicon.ico" sizes="32x32" type="image/x-icon">
+    <link rel="stylesheet" href="Styles/style.css"\>
+</head>
+<body>
+    <div id="startQuiz" class="info_container">
+        <div class="info-title" id="instructionDialog"><span>Some Rules of this Quiz</span></div>
+        <div class="info-list" id="close">
+            <div class="info"><li> You will be given <span>30s</span> to answer the given questions</li></div>
+            <div class="info"><li> At the moment when the time limit is exceeded you will be traversed to next Question</li></div>
+            <div class="info"><li> Once the Option is selected It can't be changed</li></div>
+            <div class="info"><li> You can't exit from the quiz in the middle</li></div>
+            <div class="info"><li> You'll get points on the basis of your correct answers.</li></div>
+        </div>
+</body>
+</html>
+<%- include("./partials/footer.ejs") %>

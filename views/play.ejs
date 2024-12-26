@@ -1,0 +1,45 @@
+<%- include("./partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="/Styles/favicon.ico" sizes="32x32" type="image/x-icon">
+    <link rel="stylesheet" href="Styles/style.css"/>
+</head>
+<body>
+    <h1>Choose Your Quiz Category</h1>
+
+    <!-- Category Buttons -->
+    <div class="category-container">
+        <form method="post" action="/play" id="categoryForm">
+            <button type="submit" name="category" value="sports">Sports</button>
+            <button type="submit" name="category" value="mathematics">Mathematics</button>
+            <button type="submit" name="category" value="science">Science</button>
+            <button type="submit" name="category" value="history">History</button>
+        </form>
+    </div>
+
+    <!-- Audio element for background music -->
+    <audio id="backgroundMusic" loop>
+        <source src="../assets/music/background-tune.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        document.getElementById("playMusic").addEventListener("click", function() {
+            const backgroundMusic = document.getElementById("backgroundMusic");
+            backgroundMusic.volume = 0.5; // Set volume
+            backgroundMusic.play().catch(error => {
+                console.error("Error playing audio:", error);
+            });
+        });
+    </script>
+
+    </script>
+</body>
+</html>
+<%- include("./partials/footer.ejs") %>

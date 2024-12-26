@@ -1,0 +1,87 @@
+<%- include("./partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="/Styles/style.css"/>
+    <script>
+        let timeLeft = <%= remainingTime %>;
+
+        function startTimer() {
+            const timer = document.getElementById("timer");
+            timer.innerHTML = timeLeft + " seconds remaining";
+            const interval = setInterval(function() {
+                timeLeft--;
+                if (timeLeft < 0) {
+                    clearInterval(interval);
+                    document.getElementById("quizForm").submit();
+                } else {
+                    timer.innerHTML = timeLeft + " seconds remaining";
+                }
+            }, 1000);
+        }
+
+        window.onload = function() {
+            startTimer();
+            document.getElementById("backgroundMusic").play();
+        }
+
+        function navigateQuestion(direction) {
+            const currentIndex = <%= index - 1 %>; // Adjust for 0-based index
+            const nextIndex = currentIndex + direction + 1; // +1 for 1-based index in URL
+
+            // Redirect only if the next index is valid
+            if (nextIndex >= 1 && nextIndex <= <%= totalQuestions %>) {
+                window.location.href = `/quiz?index=${nextIndex}`; // Navigate to the next question
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>Question <%= index %> of <%= totalQuestions %></h2>
+        <p id="timer"></p> <!-- Timer will display here -->
+        <form id="quizForm" action="/quiz" method="POST">
+            <p><%= question.question %></p>
+            
+            <% question.options.forEach((option, i) => { %>
+                <div>
+                    <input type="radio" name="answer" value="<%= option %>" id="option<%= i %>">
+                    <label for="option<%= i %>"><%= option %></label>
+                </div>
+            <% }) %>
+            
+        <div>
+                <h2>Your Score: <%= score %></h2>  Display the score 
+            </div> 
+        
+          
+<!-- Previous and Next Buttons -->
+<div>
+    <% if (index > 1) { %>
+        <form action="/quiz" method="POST" style="display: inline;">
+            <input type="hidden" name="navigation" value="prev"> <!-- Hidden field for previous -->
+            <button type="submit">Previous</button>
+        </form>
+    <% } %>
+    <% if (index < totalQuestions) { %>
+        <form action="/quiz" method="POST" style="display: inline;">
+            <input type="hidden" name="navigation" value="next"> <!-- Hidden field for next -->
+            <button type="submit">Next</button>
+        </form>
+    <% } %>
+</div>
+
+            <% if (lastAnswerCorrect !== null) { %>
+                <p class="<%= lastAnswerCorrect ? 'correct' : 'wrong' %>">
+                    <%= lastAnswerCorrect ? 'Correct!' : 'Wrong answer!' %>
+                </p>
+            <% } %>
+        </form>
+    </div>
+    <audio id="backgroundMusic" src="/audio/background-music.mp3" loop></audio>
+    <%- include("./partials/footer.ejs") %>
+</body>
+</html>
